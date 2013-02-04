@@ -3,5 +3,6 @@ gevent==0.13.8
 Flask==0.9
 geventhttpclient==1.0a
 SPARQLWrapper==1.5.0-authdigest
+pycurl==7.19.0
 --extra-index-url=http://pypi.globoi.com/
 
