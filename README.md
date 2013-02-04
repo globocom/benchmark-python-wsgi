@@ -13,7 +13,7 @@ We will run the following WSGI application ‘virtuoso_io.py’ on all servers:
 
 Which performs:
 * POST to add a resource
-* PUT to get a resource 
+* GET to get a resource
 
 Increasing the rate with an interval of 100 from 400 up to 9000 requests per second for a total of 40.000 requests at each interval.
 
