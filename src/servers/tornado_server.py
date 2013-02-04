@@ -28,10 +28,10 @@ class RootHandler(RequestHandler):
         pretty_json_string = json.dumps(result_dict, sort_keys=True, indent=4, separators=(",", ":"))
         self.write(pretty_json_string)
         self.flush()
+        self.finish()
 
     def post(self):
         pass
-
 
 class Application(tornado.web.Application):
 
@@ -40,7 +40,6 @@ class Application(tornado.web.Application):
             (r"/", RootHandler)
         ]
         super(Application, self).__init__(handlers)
-        # TODO db connection
 
 
 if __name__ == "__main__":
