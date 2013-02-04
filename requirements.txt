@@ -1,1 +1,4 @@
 tornado==2.4.1
+gevent==0.13.8
+Flask==0.9
+geventhttpclient==1.0a
