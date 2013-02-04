@@ -17,7 +17,6 @@ class RootHandler(RequestHandler):
         query = "select distinct ?class where {?class a owl:Class} LIMIT 100"
         url = url_concat(SPARQL_ENDPOINT, {
             "query": query,
-            "Accept": "application/sparql-results+json",
             "format": "application/sparql-results+json"
         })
 
