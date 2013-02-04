@@ -9,15 +9,12 @@ from tornado.httputil import url_concat
 
 from flask import Flask, jsonify
 
+from queries import GET_QUERY
 
 app = Flask(__name__)
 app.debug = False
 
 SPARQL_ENDPOINT = "http://localhost:8890/sparql"
-
-QUERY_SPARQL_TEMPLATE = """
-select * from <http://semantica.globo.com/> where {<http://semantica.globo.com/base/%s}> ?p ?o} LIMIT 100
-"""
 
 http_client = httpclient.AsyncHTTPClient()
 
@@ -31,7 +28,7 @@ def handle_request(response):
 
 @app.route('/schemas/<ctx>/<entity>')
 def get_class(ctx, entity):
-    query = QUERY_SPARQL_TEMPLATE % entity
+    query = GET_QUERY
     url = url_concat(SPARQL_ENDPOINT, {"query": query})
     http_client.fetch(url, handle_request)
     response = {"ok":"belex"}

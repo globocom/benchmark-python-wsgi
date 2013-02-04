@@ -7,13 +7,9 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 app.debug = False
 
-QUERY_SPARQL_TEMPLATE = """
-select * from <http://semantica.globo.com/> where {<http://semantica.globo.com/base/%s}> ?p ?o} LIMIT 100
-"""
 
 @app.route('/schemas/<ctx>/<entity>')
 def get_class(ctx, entity):
-    query = QUERY_SPARQL_TEMPLATE % entity
     response = {"ok":"belex"}
     return jsonify(response)
 
