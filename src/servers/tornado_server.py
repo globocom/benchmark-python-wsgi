@@ -1,37 +1,72 @@
 import json
+import urllib
+import uuid
 import tornado
 from tornado import gen
 from tornado.web import RequestHandler, asynchronous
-from tornado.httpclient import AsyncHTTPClient
+from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from tornado.httputil import url_concat
+
 from settings import SPARQL_ENDPOINT
+from queries import GET_QUERY, POST_QUERY, DELETE_QUERY
 
 
 class RootHandler(RequestHandler):
 
-    #SUPPORTED_METHODS = ("GET", "POST")
+    SUPPORTED_METHODS = ("GET", "POST", "DELETE")
 
     @asynchronous
     @gen.engine
     def get(self):
-        query = "select distinct ?class where {?class a owl:Class} LIMIT 100"
         url = url_concat(SPARQL_ENDPOINT, {
-            "query": query,
+            "query": GET_QUERY,
             "format": "application/sparql-results+json"
         })
 
-        AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
-        sparql_endpoint = AsyncHTTPClient()
+        sparql_endpoint = self._get_async_client()
 
         response = yield gen.Task(sparql_endpoint.fetch, url)
+        self.return_pretty_response_json(response)
+
+    @asynchronous
+    def post(self):
+        # Passing a UUID to the uri to insert into the triplestore
+        # So bechmark tests may want to insert X triplestore
+        # Delete them all
+        # Get them all
+        # and so on
+        self.modify_query(POST_QUERY % str(uuid.uuid4()))
+
+    @asynchronous
+    def delete(self):
+        self.modify_query(DELETE_QUERY)
+
+    @gen.engine
+    def modify_query(self, query):
+        body_encoded = urllib.urlencode({"query": query})
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/sparql-results+json",
+            "format": "application/sparql-results+json"
+        }
+
+        request = HTTPRequest(url=SPARQL_ENDPOINT,
+                              method="POST",
+                              headers=headers,
+                              body=body_encoded)
+        sparql_endpoint = self._get_async_client()
+        response = yield gen.Task(sparql_endpoint.fetch, request)
+        self.return_pretty_response_json(response)
+
+    def _get_async_client(self):
+        AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
+        return AsyncHTTPClient()
+
+    def return_pretty_response_json(self, response):
         result_dict = json.loads(response.body)
         pretty_json_string = json.dumps(result_dict, sort_keys=True, indent=4, separators=(",", ":"))
-        self.write(pretty_json_string)
-        self.flush()
-        self.finish()
+        self.finish(pretty_json_string)
 
-    def post(self):
-        pass
 
 class Application(tornado.web.Application):
 
