@@ -6,6 +6,7 @@ from tornado import gen
 from tornado.web import RequestHandler, asynchronous
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from tornado.httputil import url_concat
+import brukva
 
 from settings import SPARQL_ENDPOINT
 from queries import GET_QUERY, POST_QUERY, DELETE_QUERY
@@ -50,7 +51,7 @@ class RootHandler(RequestHandler):
             "format": "application/sparql-results+json"
         }
 
-        request = HTTPRequest(url=SPARQL_ENDPOINT,
+        request =   HTTPRequest(url=SPARQL_ENDPOINT,
                               method="POST",
                               headers=headers,
                               body=body_encoded)
@@ -68,11 +69,43 @@ class RootHandler(RequestHandler):
         self.finish(pretty_json_string)
 
 
+
+class RedisHandler(RequestHandler):
+
+    SUPPORTED_METHODS = ("GET", "POST", "DELETE")
+
+    @asynchronous
+    def get(self):
+        redis_client = self._get_async_client()
+        redis_client.get("foo", self.on_result)
+
+    @asynchronous
+    def post(self):
+        redis_client = self._get_async_client()
+        redis_client.set("foo", "bar", self.on_result)
+
+    @asynchronous
+    def delete(self):
+        redis_client = self._get_async_client()
+        redis_client.delete("foo", self.on_result)
+
+    def _get_async_client(self):
+        client = brukva.Client(host="localhost",
+                             port=6379,
+                             io_loop=tornado.ioloop.IOLoop.instance())
+        client.connect()
+        return client
+
+    def on_result(self, result):
+        self.finish(str(result))
+
+
 class Application(tornado.web.Application):
 
     def __init__(self):
         handlers = [
-            (r"/", RootHandler)
+            (r"/", RootHandler),
+            (r"/redis", RedisHandler)
         ]
         super(Application, self).__init__(handlers)
 
