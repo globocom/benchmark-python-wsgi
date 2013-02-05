@@ -5,4 +5,5 @@ Flask==0.9
 geventhttpclient==1.0a
 pycurl==7.19.0
 -e git://github.com/evilkost/brukva#egg=bruvka
+-e git://github.com/phus/gevent-redis#egg=gevent_redis
 --extra-index-url=http://pypi.globoi.com/
