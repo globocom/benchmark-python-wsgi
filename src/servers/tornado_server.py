@@ -72,29 +72,25 @@ class RootHandler(RequestHandler):
 
 class RedisHandler(RequestHandler):
 
+    def initialize(self):
+        self.redis_client = brukva.Client(host="localhost",
+                             port=6379,
+                             io_loop=tornado.ioloop.IOLoop.instance())
+        self.redis_client.connect()
+
     SUPPORTED_METHODS = ("GET", "POST", "DELETE")
 
     @asynchronous
     def get(self):
-        redis_client = self._get_async_client()
-        redis_client.get("foo", self.on_result)
+        self.redis_client.get("foo", self.on_result)
 
     @asynchronous
     def post(self):
-        redis_client = self._get_async_client()
-        redis_client.set("foo", "bar", self.on_result)
+        self.redis_client.set("foo", "bar", self.on_result)
 
     @asynchronous
     def delete(self):
-        redis_client = self._get_async_client()
-        redis_client.delete("foo", self.on_result)
-
-    def _get_async_client(self):
-        client = brukva.Client(host="localhost",
-                             port=6379,
-                             io_loop=tornado.ioloop.IOLoop.instance())
-        client.connect()
-        return client
+        self.redis_client.delete("foo", self.on_result)
 
     def on_result(self, result):
         self.finish(str(result))
