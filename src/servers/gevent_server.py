@@ -2,16 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from gevent.wsgi import WSGIServer
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = False
 
-
-@app.route('/schemas/<ctx>/<entity>')
-def get_class(ctx, entity):
-    response = {"ok":"belex"}
-    return jsonify(response)
 
 @app.route('/')
 def hello_world():

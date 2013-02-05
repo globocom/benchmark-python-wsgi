@@ -9,7 +9,6 @@ from tornado.httputil import url_concat
 
 from flask import Flask, jsonify
 
-from queries import GET_QUERY
 
 app = Flask(__name__)
 app.debug = False
@@ -26,17 +25,17 @@ def handle_request(response):
         print response.body
 
 
-@app.route('/schemas/<ctx>/<entity>')
-def get_class(ctx, entity):
-    query = GET_QUERY
-    url = url_concat(SPARQL_ENDPOINT, {"query": query})
-    http_client.fetch(url, handle_request)
-    response = {"ok":"belex"}
-    return jsonify(response)
+#@app.route('/schemas/<ctx>/<entity>')
+#def get_class(ctx, entity):
+#    #query = GET_QUERY
+#    url = url_concat(SPARQL_ENDPOINT, {"query": query})
+#    http_client.fetch(url, handle_request)
+#    response = {"ok":"belex"}
+#    return jsonify(response)
 
 @app.route('/')
 def hello_world():
-    print "\na"
+    print ".",
     return 'Hello World!'
 
 if __name__=="__main__":
