@@ -16,7 +16,7 @@ class VirtuosoTasks(TaskSet):
     def get(self):
         self.client.get("/")
 
-    @task(50)
+    @task(10)
     def post(self):
         self.client.post("/")
 
