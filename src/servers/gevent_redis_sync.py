@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import redis
-import geventredis
 
+from gevent.wsgi import WSGIServer
 from flask import Flask
 
 app = Flask(__name__)
