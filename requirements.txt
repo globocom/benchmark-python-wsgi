@@ -8,4 +8,3 @@ pycurl==7.19.0
 #-e git://github.com/evilkost/brukva#egg=bruvka
 redis==2.7.2
 -e git://github.com/phus/gevent-redis#egg=gevent_redis
---extra-index-url=http://pypi.globoi.com/
