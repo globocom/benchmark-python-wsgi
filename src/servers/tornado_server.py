@@ -7,6 +7,7 @@ from tornado.web import RequestHandler, asynchronous
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from tornado.httputil import url_concat
 import brukva
+import redis
 
 from settings import SPARQL_ENDPOINT
 from queries import GET_QUERY, POST_QUERY, DELETE_QUERY
@@ -51,7 +52,7 @@ class RootHandler(RequestHandler):
             "format": "application/sparql-results+json"
         }
 
-        request =   HTTPRequest(url=SPARQL_ENDPOINT,
+        request = HTTPRequest(url=SPARQL_ENDPOINT,
                               method="POST",
                               headers=headers,
                               body=body_encoded)
@@ -69,13 +70,14 @@ class RootHandler(RequestHandler):
         self.finish(pretty_json_string)
 
 
-
 class RedisHandler(RequestHandler):
 
     def initialize(self):
         self.redis_client = brukva.Client(host="localhost",
-                             port=6379,
-                             io_loop=tornado.ioloop.IOLoop.instance())
+                                          port=6379,
+                                          io_loop=tornado.ioloop.IOLoop.instance())
+
+        self.redis_client = redis.Redis(host="localhost", port=6379)
         self.redis_client.connect()
 
     SUPPORTED_METHODS = ("GET", "POST", "DELETE")
@@ -95,6 +97,29 @@ class RedisHandler(RequestHandler):
     def on_result(self, result):
         self.finish(str(result))
 
+# Yeah, i know there is duplicated code. sue me!
+# TODO refactor
+
+
+class SyncronousRedisHandler(RequestHandler):
+
+    def initialize(self):
+        self.redis_client = redis.Redis(host="localhost",
+                                        port=6379)
+
+    SUPPORTED_METHODS = ("GET", "POST", "DELETE")
+
+    @asynchronous
+    def get(self):
+        self.redis_client.get("foo")
+
+    @asynchronous
+    def post(self):
+        self.redis_client.set("foo", "bar")
+
+    @asynchronous
+    def delete(self):
+        self.redis_client.delete("foo")
 
 class Application(tornado.web.Application):
 
@@ -102,6 +127,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", RootHandler),
             (r"/redis", RedisHandler)
+            (r"/redis_async", SyncronousRedisHandler)
         ]
         super(Application, self).__init__(handlers)
 
