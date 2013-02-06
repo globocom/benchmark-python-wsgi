@@ -111,23 +111,27 @@ class SyncronousRedisHandler(RequestHandler):
 
     @asynchronous
     def get(self):
-        self.redis_client.get("foo")
+        result = self.redis_client.get("foo")
+        self.finish(str(result))
 
     @asynchronous
     def post(self):
-        self.redis_client.set("foo", "bar")
+        result = self.redis_client.set("foo", "bar")
+        self.finish(str(result))
 
     @asynchronous
     def delete(self):
-        self.redis_client.delete("foo")
+        result = self.redis_client.delete("foo")
+        self.finish(str(result))
+
 
 class Application(tornado.web.Application):
 
     def __init__(self):
         handlers = [
             (r"/", RootHandler),
-            (r"/redis", RedisHandler)
-            (r"/redis_async", SyncronousRedisHandler)
+            (r"/redis_async", RedisHandler),
+            (r"/redis", SyncronousRedisHandler)
         ]
         super(Application, self).__init__(handlers)
 
