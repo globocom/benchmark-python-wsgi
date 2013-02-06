@@ -3,6 +3,7 @@
 
 from gevent.wsgi import WSGIServer
 from flask import Flask
+import geventredis
 
 app = Flask(__name__)
 app.debug = False

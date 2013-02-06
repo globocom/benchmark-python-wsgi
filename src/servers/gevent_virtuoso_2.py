@@ -8,7 +8,9 @@ from flask import Flask
 
 from geventhttpclient.url import URL
 from geventhttpclient import httplib
+
 httplib.patch()
+
 from httplib2 import Http
 
 from settings import SPARQL_ENDPOINT
