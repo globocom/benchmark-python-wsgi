@@ -58,63 +58,81 @@ The test cases were:
  * gevent_virt_s1s2 - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
  * gevent_virt_s1s2_alt - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
  * gevent_inc_load - Gevent incremental load
+ * gevent_inc_load_alt - Gevent incremental load (alternate implementaion)
+
+The table below depicts the average results for comparisom: 
  
-<pre>
 <table>
   <tr>
-    <th>Test Case</th> <th>Requests/s</th> <th>Latency</th>
+    <th>Test Case</th> <th>Runs</th> <th>Avg. Requests/s</th>  <th>Max Requests/s</th>  <th>Min Requests/s</th>
   </tr>
   <tr>
-    <td>tornado_lan_flask_hw</td> <td></td> <td></td>
+    <td>tornado_lan_flask_hw</td> <td>10</td> <td>1929.68</td> <td>2186.74</td> <td>1395.3</td>
   </tr>
   <tr>
-    <td>gevent_lan_flask_hw</td> <td></td> <td></td>
+    <td>gevent_lan_flask_hw</td> <td>5</td> <td>883.21</td> <td>941.02</td> <td>791.95</td>
   </tr>
   <tr>
-    <td>tornado_lan_sock_hw</td> <td></td> <td></td>
+    <td>tornado_lan_sock_hw</td> <td>2</td> <td>5723.74</td> <td>5731.39</td> <td>5716.09</td>
   </tr>
   <tr>
-    <td>gevent_lan_sock_hw</td> <td></td> <td></td>
+    <td>gevent_lan_sock_hw</td> <td>2</td> <td>6597.43</td> <td>6617.0</td> <td>6577.87</td>
   </tr>
   <tr>
-    <td>gevent_pure_wsgi</td> <td></td> <td></td>
+    <td>gevent_pure_wsgi</td> <td>3</td> <td>3652.08</td> <td>3906.9</td> <td>3404.44</td>
   </tr>
   <tr>
-    <td>tornado_virt_lan</td> <td></td> <td></td>
+    <td>tornado_virt_lan</td> <td>4</td> <td>643.21</td> <td>740.14</td> <td>377.55</td>
   </tr>
   <tr>
-    <td>gevent_virt_lan</td> <td></td> <td></td>
+    <td>gevent_virt_lan</td> <td>6</td> <td>140.12</td> <td>162.46</td> <td>130.91</td>
   </tr>
   <tr>
-    <td>tornado_virt_s3</td> <td></td> <td></td>
+    <td>tornado_virt_s3</td> <td>5</td> <td>900.48</td> <td>920.0</td> <td>881.46</td>
   </tr>
   <tr>
-    <td>gevent_virt_s3</td> <td></td> <td></td>
+    <td>gevent_virt_s3</td> <td>4</td> <td>436.85</td> <td>449</td> <td>428.79</td>
   </tr>
   <tr>
-    <td>gevent_virt_s3_alt</td> <td></td> <td></td>
+    <td>gevent_virt_s3_alt</td> <td>4</td> <td>522.32</td> <td>525</td> <td>516</td>
   </tr>
   <tr>
-    <td>tornado_virt_s1s2_pycurl</td> <td></td> <td></td>
+    <td>tornado_virt_s1s2_pycurl</td> <td>2</td> <td>986</td> <td>991</td> <td>981</td>
   </tr>
   <tr>
-    <td>tornado_virt_s1s2_native</td> <td></td> <td></td>
+    <td>tornado_virt_s1s2_native</td> <td>2</td> <td>624</td> <td>629</td> <td>620</td>
   </tr>
   <tr>
-    <td>gevent_virt_s1s2</td> <td></td> <td></td>
+    <td>gevent_virt_s1s2</td> <td>2</td> <td>414</td> <td>417</td> <td>411</td>
   </tr>
   <tr>
-    <td>gevent_virt_s1s2_alt</td> <td></td> <td></td>
+    <td>gevent_virt_s1s2_alt</td> <td>2</td> <td>167</td> <td>171</td> <td>164</td>
   </tr>
   <tr>
-    <td>tornado_virt_pypy</td> <td></td> <td></td>
+    <td>tornado_virt_pypy</td> <td>2</td> <td>822</td> <td>855</td> <td>789</td>
   </tr>
 </table>
-</pre>
 
- [This file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
+The following table presents how "request/s" evolves as the client load increases.
+The columns represent the number of parallel connections in the client that generates the load.
+
+<table>
+  <tr>
+    <th>Test Case</th> <th>10</th> <th>20</th>  <th>30</th>  <th>40</th>  <th>50</th> 
+  </tr>
+  <tr>
+    <td>tornado_inc_load</td> <td>896</td> <td>899</td> <td>879</td> <td>862</td> <td>852</td>
+    <td>gevent_inc_load</td> <td>462</td> <td>446</td> <td>437</td> <td>308</td> <td>256</td>
+    <td>gevent_inc_load_alt</td> <td>518</td> <td>508</td> <td>413</td> <td>310</td> <td>311</td>
+  </tr>
+</table> 
+
+[The attached Benchmarks.md file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
  dumps of the raw tests executed.
- 
+
+DISCLAIMER: This is a quick-and-dirty benchmark for us to have a glimpse of how to code in Tornado in comparisom
+            with how to code in Gevent, and to have a coarse grain idea of performance. A serious benchmark would
+            need much more repetiotions under more controlled conditions.
 
 Team members
 ------------
