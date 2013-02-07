@@ -51,8 +51,8 @@ The test cases were:
 
  * gevent_lan_flask_hw - Gevent returning a simple "Hello World" for GET /  with Flask in corporate network
  * gevent_lan_sock_hw - Gevent returning a simple "Hello World" for GET /  with pure sockets in corporate network
- * gevent_virt_lan - Gevent doing a query in Virtuoso (all servers in the same machine) in corporate network
  * gevent_pure_wsgi - Gevent returning a simple "Hello World" for GET /  with pure WSGI in corporate network
+ * gevent_virt_lan - Gevent doing a query in Virtuoso (all servers in the same machine) in corporate network
  * gevent_virt_s3 - Gevent doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
  * gevent_virt_s3_alt - Gevent (alternate implementaion) doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
  * gevent_virt_s1s2 - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
@@ -60,8 +60,56 @@ The test cases were:
  * gevent_inc_load - Gevent incremental load
  
 <pre>
-
-
+<table>
+  <tr>
+    <th>Test Case</th> <th>Requests/s</th> <th>Latency</th>
+  </tr>
+  <tr>
+    <td>tornado_lan_flask_hw</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_lan_flask_hw</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>tornado_lan_sock_hw</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_lan_sock_hw</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_pure_wsgi</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>tornado_virt_lan</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_virt_lan</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>tornado_virt_s3</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_virt_s3</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_virt_s3_alt</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>tornado_virt_s1s2_pycurl</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>tornado_virt_s1s2_native</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_virt_s1s2</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>gevent_virt_s1s2_alt</td> <td></td> <td></td>
+  </tr>
+  <tr>
+    <td>tornado_virt_pypy</td> <td></td> <td></td>
+  </tr>
+</table>
 </pre>
 
  [This file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
