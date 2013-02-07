@@ -1,7 +1,7 @@
 Tornado retornando “Hello World!” na rede corporativa
 -----------------------------------------------------
 
-    <code>
+Code:
     #!/usr/bin/env python
     # -*- coding: utf-8 -*-
     from tornado import httpclient
@@ -77,9 +77,9 @@ Making 10000 requests to http://X.X.X.22:8888/
 Requests/sec:   1891.06
 Transfer/sec:    221.61KB
 
+
 Tornando rodando “Hello World” sem print na rede corporativa
 -------------------------------------------------------------
-
 
 wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
 Making 10000 requests to http://X.X.X.22:8888/
@@ -131,28 +131,29 @@ Making 10000 requests to http://X.X.X.22:8888/
 Requests/sec:   2186.74
 Transfer/sec:    256.26KB
 
-#-------------------------------------------------------
-# Gevent retornando "Hello World" na rede da globo.com
 
-<code>
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+Gevent retornando "Hello World" na redecorporativa
+--------------------------------------------------
 
-from gevent.wsgi import WSGIServer
-from flask import Flask
+Code:
 
-app = Flask(__name__)
-app.debug = False
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
-
-if __name__ == "__main__":
-    http_server = WSGIServer(('', 8888), app)
-    http_server.serve_forever()
-
-</code>
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
+    
+    from gevent.wsgi import WSGIServer
+    from flask import Flask
+    
+    app = Flask(__name__)
+    app.debug = False
+    
+    @app.route('/')
+    def hello_world():
+        return 'Hello World!'
+    
+    if __name__ == "__main__":
+        http_server = WSGIServer(('', 8888), app)
+        http_server.serve_forever()
+    
 
 
 wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
@@ -208,37 +209,37 @@ Requests/sec:    872.69
 Transfer/sec:    152.55KB
 
 
-#-------------------------------------------------------
-# Gevent_virtuoso
+Gevent fazendo consulta no Virtuoso
+------------------------------------
 
-<code>
-from gevent.wsgi import WSGIServer
-from gevent import monkey
-monkey.patch_all()
+Code:
 
-import requests
-from flask import Flask, json
-
-from settings import SPARQL_ENDPOINT
-from queries import GET_QUERY
-
-app = Flask(__name__)
-app.debug = False
-
-@app.route('/')
-def get():
-    payload = {
-        "query": GET_QUERY,
-        "format": "application/sparql-results+json"
-    }
-    r = requests.get(SPARQL_ENDPOINT, params=payload)
-    return r.text
-
-
-if __name__ == "__main__":
-    http_server = WSGIServer(('', 8888), app)
-    http_server.serve_forever()
-</code>
+    from gevent.wsgi import WSGIServer
+    from gevent import monkey
+    monkey.patch_all()
+    
+    import requests
+    from flask import Flask, json
+    
+    from settings import SPARQL_ENDPOINT
+    from queries import GET_QUERY
+    
+    app = Flask(__name__)
+    app.debug = False
+    
+    @app.route('/')
+    def get():
+        payload = {
+            "query": GET_QUERY,
+            "format": "application/sparql-results+json"
+        }
+        r = requests.get(SPARQL_ENDPOINT, params=payload)
+        return r.text
+    
+    
+    if __name__ == "__main__":
+        http_server = WSGIServer(('', 8888), app)
+        http_server.serve_forever()
 
 wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
 Making 1000 requests to http://X.X.X.22:8888/
@@ -306,151 +307,152 @@ Requests/sec:    134.01
 Transfer/sec:     46.20KB
 
 
-#-------------------------------------------------------
-# Tornado_virtuoso 
-<code>
-import json
-import urllib
-import uuid
-import tornado
-from tornado import gen
-from tornado.web import RequestHandler, asynchronous
-from tornado.httpclient import AsyncHTTPClient, HTTPRequest
-from tornado.httputil import url_concat
-import redis
+Tornado fazendo conexão no Virtuoso
+------------------------------------
 
-from settings import SPARQL_ENDPOINT
-from queries import GET_QUERY, POST_QUERY, DELETE_QUERY
+Code:
+    import json
+    import urllib
+    import uuid
+    import tornado
+    from tornado import gen
+    from tornado.web import RequestHandler, asynchronous
+    from tornado.httpclient import AsyncHTTPClient, HTTPRequest
+    from tornado.httputil import url_concat
+    import redis
+    
+    from settings import SPARQL_ENDPOINT
+    from queries import GET_QUERY, POST_QUERY, DELETE_QUERY
+    
+    
+    class RootHandler(RequestHandler):
+    
+        SUPPORTED_METHODS = ("GET", "POST", "DELETE")
+    
+        @asynchronous
+        @gen.engine
+        def get(self):
+            url = url_concat(SPARQL_ENDPOINT, {
+                "query": GET_QUERY,
+                "format": "application/sparql-results+json"
+            })
+    
+            sparql_endpoint = self._get_async_client()
+    
+            response = yield gen.Task(sparql_endpoint.fetch, url)
+            self.return_pretty_response_json(response)
+    
+        @asynchronous
+        def post(self):
+            # Passing a UUID to the uri to insert into the triplestore
+            # So bechmark tests may want to insert X triplestore
+            # Delete them all
+            # Get them all
+            # and so on
+            self.modify_query(POST_QUERY % str(uuid.uuid4()))
+    
+        @asynchronous
+        def delete(self):
+            self.modify_query(DELETE_QUERY)
+    
+        @gen.engine
+        def modify_query(self, query):
+            body_encoded = urllib.urlencode({"query": query})
+            headers = {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/sparql-results+json",
+                "format": "application/sparql-results+json"
+            }
+    
+            request = HTTPRequest(url=SPARQL_ENDPOINT,
+                                  method="POST",
+                                  headers=headers,
+                                  body=body_encoded)
+            sparql_endpoint = self._get_async_client()
+            response = yield gen.Task(sparql_endpoint.fetch, request)
+            self.return_pretty_response_json(response)
+    
+        def _get_async_client(self):
+            AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
+            return AsyncHTTPClient()
+    
+        def return_pretty_response_json(self, response):
+            result_dict = json.loads(response.body)
+            pretty_json_string = json.dumps(result_dict, sort_keys=True, indent=4, separators=(",", ":"))
+            self.finish(pretty_json_string)
+    
+    
+    class RedisHandler(RequestHandler):
+    
+        def initialize(self):
+            self.redis_client = brukva.Client(host="localhost",
+                                              port=6379,
+                                              io_loop=tornado.ioloop.IOLoop.instance())
+    
+            self.redis_client = redis.Redis(host="localhost", port=6379)
+            self.redis_client.connect()
+    
+        SUPPORTED_METHODS = ("GET", "POST", "DELETE")
+    
+        @asynchronous
+        def get(self):
+            self.redis_client.get("foo", self.on_result)
+    
+        @asynchronous
+        def post(self):
+            self.redis_client.set("foo", "bar", self.on_result)
+    
+        @asynchronous
+        def delete(self):
+            self.redis_client.delete("foo", self.on_result)
+    
+        def on_result(self, result):
+            self.finish(str(result))
+    
+    # Yeah, i know there is duplicated code. sue me!
+    # TODO refactor
+    
+    
+    class SyncronousRedisHandler(RequestHandler):
+    
+        def initialize(self):
+            self.redis_client = redis.Redis(host="localhost",
+                                            port=6379)
+    
+        SUPPORTED_METHODS = ("GET", "POST", "DELETE")
+    
+        @asynchronous
+        def get(self):
+            result = self.redis_client.get("foo")
+            self.finish(str(result))
+    
+        @asynchronous
+        def post(self):
+            result = self.redis_client.set("foo", "bar")
+            self.finish(str(result))
+    
+        @asynchronous
+        def delete(self):
+            result = self.redis_client.delete("foo")
+            self.finish(str(result))
+    
+    
+    class Application(tornado.web.Application):
+    
+        def __init__(self):
+            handlers = [
+                (r"/", RootHandler),
+                (r"/redis_async", RedisHandler),
+                (r"/redis", SyncronousRedisHandler)
+            ]
+            super(Application, self).__init__(handlers)
+    
+    
+    if __name__ == "__main__":
+        Application().listen(8888)
+        print "The tornado is here..."
+        tornado.ioloop.IOLoop.instance().start()
 
-
-class RootHandler(RequestHandler):
-
-    SUPPORTED_METHODS = ("GET", "POST", "DELETE")
-
-    @asynchronous
-    @gen.engine
-    def get(self):
-        url = url_concat(SPARQL_ENDPOINT, {
-            "query": GET_QUERY,
-            "format": "application/sparql-results+json"
-        })
-
-        sparql_endpoint = self._get_async_client()
-
-        response = yield gen.Task(sparql_endpoint.fetch, url)
-        self.return_pretty_response_json(response)
-
-    @asynchronous
-    def post(self):
-        # Passing a UUID to the uri to insert into the triplestore
-        # So bechmark tests may want to insert X triplestore
-        # Delete them all
-        # Get them all
-        # and so on
-        self.modify_query(POST_QUERY % str(uuid.uuid4()))
-
-    @asynchronous
-    def delete(self):
-        self.modify_query(DELETE_QUERY)
-
-    @gen.engine
-    def modify_query(self, query):
-        body_encoded = urllib.urlencode({"query": query})
-        headers = {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "application/sparql-results+json",
-            "format": "application/sparql-results+json"
-        }
-
-        request = HTTPRequest(url=SPARQL_ENDPOINT,
-                              method="POST",
-                              headers=headers,
-                              body=body_encoded)
-        sparql_endpoint = self._get_async_client()
-        response = yield gen.Task(sparql_endpoint.fetch, request)
-        self.return_pretty_response_json(response)
-
-    def _get_async_client(self):
-        AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
-        return AsyncHTTPClient()
-
-    def return_pretty_response_json(self, response):
-        result_dict = json.loads(response.body)
-        pretty_json_string = json.dumps(result_dict, sort_keys=True, indent=4, separators=(",", ":"))
-        self.finish(pretty_json_string)
-
-
-class RedisHandler(RequestHandler):
-
-    def initialize(self):
-        self.redis_client = brukva.Client(host="localhost",
-                                          port=6379,
-                                          io_loop=tornado.ioloop.IOLoop.instance())
-
-        self.redis_client = redis.Redis(host="localhost", port=6379)
-        self.redis_client.connect()
-
-    SUPPORTED_METHODS = ("GET", "POST", "DELETE")
-
-    @asynchronous
-    def get(self):
-        self.redis_client.get("foo", self.on_result)
-
-    @asynchronous
-    def post(self):
-        self.redis_client.set("foo", "bar", self.on_result)
-
-    @asynchronous
-    def delete(self):
-        self.redis_client.delete("foo", self.on_result)
-
-    def on_result(self, result):
-        self.finish(str(result))
-
-# Yeah, i know there is duplicated code. sue me!
-# TODO refactor
-
-
-class SyncronousRedisHandler(RequestHandler):
-
-    def initialize(self):
-        self.redis_client = redis.Redis(host="localhost",
-                                        port=6379)
-
-    SUPPORTED_METHODS = ("GET", "POST", "DELETE")
-
-    @asynchronous
-    def get(self):
-        result = self.redis_client.get("foo")
-        self.finish(str(result))
-
-    @asynchronous
-    def post(self):
-        result = self.redis_client.set("foo", "bar")
-        self.finish(str(result))
-
-    @asynchronous
-    def delete(self):
-        result = self.redis_client.delete("foo")
-        self.finish(str(result))
-
-
-class Application(tornado.web.Application):
-
-    def __init__(self):
-        handlers = [
-            (r"/", RootHandler),
-            (r"/redis_async", RedisHandler),
-            (r"/redis", SyncronousRedisHandler)
-        ]
-        super(Application, self).__init__(handlers)
-
-
-if __name__ == "__main__":
-    Application().listen(8888)
-    print "The tornado is here..."
-    tornado.ioloop.IOLoop.instance().start()
-</code>
 
 wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
 Making 1000 requests to http://X.X.X.22:8888/
@@ -492,10 +494,10 @@ Making 10000 requests to http://X.X.X.22:8888/
 Requests/sec:    717.77
 Transfer/sec:    357.48KB
 
-#-------------------------------------------------------
-# Tornado_virtuoso na Amazon Srv3
+Tornado acessando virtuoso na Amazon Srv3
+-----------------------------------------
 
-./wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
@@ -505,7 +507,7 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:    898.11
 Transfer/sec:    446.42KB
 
-./wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
@@ -515,7 +517,7 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:    896.87
 Transfer/sec:    445.81KB
 
-./wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
@@ -525,8 +527,8 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:    881.46
 Transfer/sec:    438.15KB
 
-#-------------------------------------------------------
-# Gevent_virtuoso sem print na Amazon Srv3
+Gevent acessando Virtuoso  na Amazon Srv3
+------------------------------------------
 
 wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
@@ -548,31 +550,9 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:    429.61
 Transfer/sec:    147.68KB
 
-#-------------------------------------------------------
-# Gevent_virtuoso_2 sem print na Amazon Srv3
 
-wrk -r10000 -t5 -c50 "http://Srv3:8888/"
-Making 10000 requests to http://Srv3:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    94.60ms    6.28ms 127.64ms   98.74%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10000 requests in 19.08s, 3.36MB read
-Requests/sec:    524.08
-Transfer/sec:    180.15KB
-
-wrk -r10000 -t5 -c50 "http://Srv3:8888/"
-Making 10000 requests to http://Srv3:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    94.71ms    3.59ms 103.70ms   91.77%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10000 requests in 19.08s, 3.36MB read
-Requests/sec:    524.20
-Transfer/sec:    180.19KB
-
-#-------------------------------------------------------
-# Gevent_pure_wsgi na Amazon Srv3
+Gevent_pure_wsgi na Amazon Srv3
+-------------------------------
 
 wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
@@ -603,8 +583,8 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:   3906.90
 Transfer/sec:    625.71KB
 
-#-------------------------------------------------------
-# Tornado_sock na Amazon Srv3
+Tornado_sock na Amazon Srv3
+---------------------------
 
 wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
@@ -626,8 +606,9 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:   5716.09
 Transfer/sec:    251.20KB
 
-#-------------------------------------------------------
-# Gevent_sock na Amazon Srv3
+Gevent_sock na Amazon Srv3
+--------------------------
+
 wrk -r10000 -t5 -c50 "http://Srv3:8888/"
 Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
@@ -648,8 +629,8 @@ Making 10000 requests to http://Srv3:8888/
 Requests/sec:   6577.87
 Transfer/sec:    289.07KB
 
-#-------------------------------------------------------
-# Gevent_virtuoso2 na Amazon Srv3
+Gevent_virtuoso2 na Amazon Srv3
+--------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 19 sec, 28 millisec and 232 microsec, 525 req/s, 180 kbyte/s
@@ -663,8 +644,28 @@ requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 e
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-#-------------------------------------------------------
-# Gevent_virtuoso na Amazon Srv3
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
+  5 threads and 50 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    94.60ms    6.28ms 127.64ms   98.74%
+    Req/Sec     0.00      0.00     0.00    100.00%
+  10000 requests in 19.08s, 3.36MB read
+Requests/sec:    524.08
+Transfer/sec:    180.15KB
+
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
+  5 threads and 50 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    94.71ms    3.59ms 103.70ms   91.77%
+    Req/Sec     0.00      0.00     0.00    100.00%
+  10000 requests in 19.08s, 3.36MB read
+Requests/sec:    524.20
+Transfer/sec:    180.19KB
+
+Gevent_virtuoso na Amazon Srv3
+------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 22 sec, 232 millisec and 335 microsec, 449 req/s, 154 kbyte/s
@@ -678,7 +679,9 @@ requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 e
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-# Tornado_server na Amazon Srv3
+Tornado_server na Amazon Srv3
+------------------------------
+
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 10 sec, 864 millisec and 227 microsec, 920 req/s, 457 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
@@ -690,8 +693,8 @@ requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 e
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
-#-------------------------------------------------------
-# Gevent 1 server na Amazon Srv1 com banco em Srv2
+Gevent 1 server na Amazon Srv1 com banco em Srv2
+------------------------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 24 sec, 307 millisec and 276 microsec, 411 req/s, 141 kbyte/s
@@ -706,8 +709,8 @@ status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
 
-#-------------------------------------------------------
-# Gevent 2 server na Amazon Srv1 com banco em Srv2
+Gevent 2 server na Amazon Srv1 com banco em Srv2
+------------------------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 60 sec, 636 millisec and 298 microsec, 164 req/s, 56 kbyte/s
@@ -721,8 +724,8 @@ requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 e
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-#-------------------------------------------------------
-# Tornado server na Amazon Srv1 com banco em Srv2
+Tornado server na Amazon Srv1 com banco em Srv2
+-----------------------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 10 sec, 89 millisec and 421 microsec, 991 req/s, 492 kbyte/s
@@ -736,8 +739,8 @@ requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 e
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
-#-------------------------------------------------------
-# Tornado server sem CURL na Amazon Srv1 com banco em Srv2
+Tornado server sem CURL na Amazon Srv1 com banco em Srv2
+--------------------------------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 15 sec, 896 millisec and 303 microsec, 629 req/s, 312 kbyte/s
@@ -752,23 +755,20 @@ status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
 
-#-------------------------------------------------------
-# Testes com Redis
 
-#-------------------------------------------------------
 Testes com conexões incrementais
+================================
 
-./inc_test.sh  
-<code>
-#!/bin/bash
-for i in 10 20 30 40 50
-do
-    echo "Conexoes $i"
-    weighttp -n 10000 -c $i -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
-done
-</code>
+    #./inc_test.sh  
+    #!/bin/bash
+    for i in 10 20 30 40 50
+    do
+        echo "Conexoes $i"
+        weighttp -n 10000 -c $i -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
+    done
 
 Executando com python servers/tornado_server.py
+-----------------------------------------------
 
 Conexoes 10
 weighttp - a lightweight and simple webserver benchmarking tool
@@ -805,8 +805,9 @@ requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 e
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
-#-------------------------------------------------------
-# Executando com python servers/gevent_virtuoso.py
+
+Executando com python servers/gevent_virtuoso.py
+------------------------------------------------
 
 Conexoes 10
 weighttp - a lightweight and simple webserver benchmarking tool
@@ -843,8 +844,8 @@ requests: 10000 total, 10000 started, 10000 done, 7909 succeeded, 2091 failed, 0
 status codes: 7909 2xx, 0 3xx, 0 4xx, 2091 5xx
 traffic: 3752101 bytes total, 2296845 bytes http, 1455256 bytes data
 
-#-------------------------------------------------------
 Executando com python servers/gevent_virtuoso_2.py
+--------------------------------------------------
 
 Conexoes 10
 weighttp - a lightweight and simple webserver benchmarking tool
@@ -878,11 +879,11 @@ status codes: 8894 2xx, 0 3xx, 0 4xx, 1106 5xx
 traffic: 3642766 bytes total, 2006270 bytes http, 1636496 bytes data
 
 
-#==============================================================
-# Testes com Pypy
+Testes com Pypy
+=================
 
-#-------------------------------------------------------
-# Tornado server na Amazon Srv1 com banco em Srv2
+Tornado server na Amazon Srv1 com banco em Srv2
+-----------------------------------------------
 
 weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 12 sec, 668 millisec and 910 microsec, 789 req/s, 392 kbyte/s
