@@ -134,15 +134,27 @@ The columns represent the number of parallel connections in the client that gene
 [The attached Benchmarks.md file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
  dumps of the raw tests executed.
 
+
 Conclusions
 -----------
 
-Tornado shows consistently a better performance than Gevent considering just "requests/s".
-The code produced with Gevent was cleaner and more readable than the code produced with Tornado.
+Tornado shows consistently a better performance than Gevent considering just "requests/s", and responds better to 
+increases in the load.
+However, the code produced with Gevent was cleaner and more readable than the code produced with Tornado.
 
+When using Tornado, the adoption of the pycurl client (instead of the [native client](http://www.tornadoweb.org/documentation/httpclient.html))
+provides an enhancement in the performance.
+
+The use of Flask significantly reduces the performance of both Tornado or Gevent.
+
+Comparing *tornado_virt_s3* with *tornado_virt_pypy* showed that PyPy adoption did not contributed to any performance enhancement.
+We were unable to run PyPy with Gevent. 
+
+We did not have consistent results of which is the best http client for Gevent: either the patched "requests" lib or "geventhttpclient".
+When the servers are separate (more realistic use case),  patched "requests" performed better than "geventhttpclient".
 
 We did some other tests accessing a backend Redis server, instead of Virtuoso.
-The source code is also published in this project, but we did not compute the results of those tests in this report.
+The source code is also published in this project, but we did not reported here the detailed results of those tests.
 When quering the Redis server using a synchronous driver the results of Tornado and Gevent had equivalent performances,
 however neither was stable.
 
