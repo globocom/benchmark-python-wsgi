@@ -44,10 +44,11 @@ Team members
 ------------
 
 The team members that took part in the testing efforts were:
- - Ícaro Medeiros
- - Tatiana Al-Chuery Pereira Martins
- - Guilherme Machado Cirne
- - Rodrigo Dias Arruda Senra
+
+  - Guilherme Machado Cirne
+  - Ícaro Medeiros
+  - Rodrigo Dias Arruda Senra
+  - Tatiana Al-Chuery Pereira Martins
 
  
 References
