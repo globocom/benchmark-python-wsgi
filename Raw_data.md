@@ -27,8 +27,8 @@ if __name__=="__main__":
 
 </code>
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    36.43ms   35.17ms 237.48ms   91.88%
@@ -37,8 +37,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   1395.30
 Transfer/sec:    163.51KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    25.20ms    7.37ms  51.52ms   71.43%
@@ -47,8 +47,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   1956.24
 Transfer/sec:    229.25KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    23.81ms    5.86ms  52.28ms   67.10%
@@ -57,8 +57,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   2137.54
 Transfer/sec:    250.49KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    28.56ms   10.18ms  83.10ms   81.32%
@@ -67,8 +67,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   1802.59
 Transfer/sec:    211.24KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    26.83ms    9.41ms  70.45ms   79.17%
@@ -80,8 +80,8 @@ Transfer/sec:    221.61KB
 #-------------------------------------------------------
 # Tornando rodando “Hello World” sem print na rede da globo.com
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    22.09ms    5.70ms  46.52ms   76.43%
@@ -90,8 +90,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   2145.75
 Transfer/sec:    251.45KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    30.79ms    8.53ms  54.53ms   70.30%
@@ -100,8 +100,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   1637.35
 Transfer/sec:    191.88KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    24.72ms   10.01ms 100.80ms   88.27%
@@ -110,8 +110,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   2026.90
 Transfer/sec:    237.53KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    23.14ms    5.54ms  41.62ms   69.57%
@@ -120,8 +120,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:   2117.36
 Transfer/sec:    248.13KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    22.55ms    5.06ms  42.13ms   78.43%
@@ -154,8 +154,8 @@ if __name__ == "__main__":
 </code>
 
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    24.26ms   15.50ms 266.76ms   96.08%
@@ -165,8 +165,8 @@ Requests/sec:    885.92
 Transfer/sec:    154.86KB
 
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    26.16ms   25.16ms 256.55ms   98.85%
@@ -175,8 +175,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    924.46
 Transfer/sec:    161.60KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    21.83ms    8.60ms  80.75ms   80.48%
@@ -185,8 +185,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    941.02
 Transfer/sec:    164.49KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    27.37ms   19.39ms 155.31ms   94.79%
@@ -196,8 +196,8 @@ Requests/sec:    791.95
 Transfer/sec:    138.44KB
 
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    27.29ms   30.52ms 372.54ms   94.65%
@@ -239,8 +239,8 @@ if __name__ == "__main__":
     http_server.serve_forever()
 </code>
 
-wrk -r1000 -t2 -c5 http://10.2.180.22:8888/
-Making 1000 requests to http://10.2.180.22:8888/
+wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
+Making 1000 requests to http://X.X.X.22:8888/
   2 threads and 5 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    12.49ms    3.31ms  21.95ms   65.85%
@@ -249,8 +249,8 @@ Making 1000 requests to http://10.2.180.22:8888/
 Requests/sec:    162.46
 Transfer/sec:     56.00KB
 
-wrk -r10000 -t5 -c50 "http://10.2.180.22:8888/"
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   295.27ms  581.73ms   3.60s    92.29%
@@ -260,8 +260,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    130.91
 Transfer/sec:     45.13KB
 
-wrk -r10000 -t5 -c50 "http://10.2.180.22:8888/"
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   230.14ms  469.85ms   3.52s    95.45%
@@ -271,8 +271,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    141.76
 Transfer/sec:     48.87KB
 
-wrk -r10000 -t5 -c50 "http://10.2.180.22:8888/"
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   231.35ms  436.76ms   3.59s    94.18%
@@ -282,8 +282,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    135.03
 Transfer/sec:     46.55KB
 
-wrk -r10000 -t5 -c50 "http://10.2.180.22:8888/"
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   229.98ms  455.50ms   3.50s    95.36%
@@ -293,8 +293,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    136.55
 Transfer/sec:     47.07KB
 
-wrk -r10000 -t5 -c50 "http://10.2.180.22:8888/"
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   239.44ms  410.80ms   3.59s    94.88%
@@ -451,8 +451,8 @@ if __name__ == "__main__":
     tornado.ioloop.IOLoop.instance().start()
 </code>
 
-wrk -r1000 -t2 -c5 http://10.2.180.22:8888/
-Making 1000 requests to http://10.2.180.22:8888/
+wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
+Making 1000 requests to http://X.X.X.22:8888/
   2 threads and 5 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    10.72ms    4.76ms  24.35ms   77.78%
@@ -461,8 +461,8 @@ Making 1000 requests to http://10.2.180.22:8888/
 Requests/sec:    377.55
 Transfer/sec:    188.04KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    67.93ms   18.07ms 257.39ms   89.36%
@@ -471,8 +471,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    737.40
 Transfer/sec:    367.26KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    65.06ms   12.41ms 142.40ms   83.37%
@@ -481,8 +481,8 @@ Making 10000 requests to http://10.2.180.22:8888/
 Requests/sec:    740.14
 Transfer/sec:    368.63KB
 
-wrk -r10000 -t5 -c50 http://10.2.180.22:8888/
-Making 10000 requests to http://10.2.180.22:8888/
+wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+Making 10000 requests to http://X.X.X.22:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    68.96ms   29.06ms 423.30ms   95.68%
@@ -492,10 +492,10 @@ Requests/sec:    717.77
 Transfer/sec:    357.48KB
 
 #-------------------------------------------------------
-# Tornado_virtuoso na Amazon 10.248.9.217
+# Tornado_virtuoso na Amazon Srv3
 
-./wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+./wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    55.19ms    7.21ms  83.58ms   81.22%
@@ -504,8 +504,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:    898.11
 Transfer/sec:    446.42KB
 
-./wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+./wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    54.70ms    7.29ms  88.90ms   88.52%
@@ -514,8 +514,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:    896.87
 Transfer/sec:    445.81KB
 
-./wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+./wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    56.03ms    8.35ms  80.86ms   87.40%
@@ -525,10 +525,10 @@ Requests/sec:    881.46
 Transfer/sec:    438.15KB
 
 #-------------------------------------------------------
-# Gevent_virtuoso sem print na Amazon 10.248.9.217
+# Gevent_virtuoso sem print na Amazon Srv3
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   115.05ms   13.69ms 159.72ms   82.92%
@@ -537,8 +537,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:    428.79
 Transfer/sec:    147.40KB
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   114.73ms   13.86ms 151.87ms   81.70%
@@ -548,10 +548,10 @@ Requests/sec:    429.61
 Transfer/sec:    147.68KB
 
 #-------------------------------------------------------
-# Gevent_virtuoso_2 sem print na Amazon 10.248.9.217
+# Gevent_virtuoso_2 sem print na Amazon Srv3
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    94.60ms    6.28ms 127.64ms   98.74%
@@ -560,8 +560,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:    524.08
 Transfer/sec:    180.15KB
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    94.71ms    3.59ms 103.70ms   91.77%
@@ -571,10 +571,10 @@ Requests/sec:    524.20
 Transfer/sec:    180.19KB
 
 #-------------------------------------------------------
-# Gevent_pure_wsgi na Amazon 10.248.9.217
+# Gevent_pure_wsgi na Amazon Srv3
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    13.39ms    1.76ms  16.28ms   79.78%
@@ -582,8 +582,8 @@ Making 10000 requests to http://10.248.9.217:8888/
   10000 requests in 2.74s, 1.56MB read
 Requests/sec:   3644.92
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    14.21ms    0.88ms  17.96ms   79.80%
@@ -592,8 +592,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:   3404.44
 Transfer/sec:    545.24KB
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    12.55ms    1.84ms  15.04ms   53.66%
@@ -603,10 +603,10 @@ Requests/sec:   3906.90
 Transfer/sec:    625.71KB
 
 #-------------------------------------------------------
-# Tornado_sock na Amazon 10.248.9.217
+# Tornado_sock na Amazon Srv3
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    10.48ms   46.74ms 219.66ms   95.35%
@@ -615,8 +615,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:   5731.39
 Transfer/sec:    251.87KB
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   447.40us  484.46us   1.38ms   79.07%
@@ -626,9 +626,9 @@ Requests/sec:   5716.09
 Transfer/sec:    251.20KB
 
 #-------------------------------------------------------
-# Gevent_sock na Amazon 10.248.9.217
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+# Gevent_sock na Amazon Srv3
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency     7.15ms  338.16us   7.74ms   75.51%
@@ -637,8 +637,8 @@ Making 10000 requests to http://10.248.9.217:8888/
 Requests/sec:   6617.00
 Transfer/sec:    290.79KB
 
-wrk -r10000 -t5 -c50 "http://10.248.9.217:8888/"
-Making 10000 requests to http://10.248.9.217:8888/
+wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+Making 10000 requests to http://Srv3:8888/
   5 threads and 50 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency     7.23ms  388.84us   8.24ms   71.70%
@@ -648,37 +648,37 @@ Requests/sec:   6577.87
 Transfer/sec:    289.07KB
 
 #-------------------------------------------------------
-# Gevent_virtuoso2 na Amazon 10.248.9.217
+# Gevent_virtuoso2 na Amazon Srv3
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://10.248.9.217:8888/
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 19 sec, 28 millisec and 232 microsec, 525 req/s, 180 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://10.248.9.217:8888/
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 19 sec, 377 millisec and 764 microsec, 516 req/s, 177 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
 #-------------------------------------------------------
-# Gevent_virtuoso na Amazon 10.248.9.217
+# Gevent_virtuoso na Amazon Srv3
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://10.248.9.217:8888/
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 22 sec, 232 millisec and 335 microsec, 449 req/s, 154 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://10.248.9.217:8888/
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 22 sec, 676 millisec and 538 microsec, 440 req/s, 151 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-# Tornado_server na Amazon 10.248.9.217
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://10.248.9.217:8888/
+# Tornado_server na Amazon Srv3
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 finished in 10 sec, 864 millisec and 227 microsec, 920 req/s, 457 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
@@ -690,15 +690,15 @@ status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
 #-------------------------------------------------------
-# Gevent 1 server na Amazon 12-31-39-0C-45-4C com banco em 10-245-103-147
+# Gevent 1 server na Amazon Srv1 com banco em Srv2
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 24 sec, 307 millisec and 276 microsec, 411 req/s, 141 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 23 sec, 944 millisec and 71 microsec, 417 req/s, 143 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
@@ -706,45 +706,45 @@ traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
 
 #-------------------------------------------------------
-# Gevent 2 server na Amazon 12-31-39-0C-45-4C com banco em 10-245-103-147
+# Gevent 2 server na Amazon Srv1 com banco em Srv2
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 60 sec, 636 millisec and 298 microsec, 164 req/s, 56 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 58 sec, 241 millisec and 300 microsec, 171 req/s, 59 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
 #-------------------------------------------------------
-# Tornado server na Amazon 12-31-39-0C-45-4C com banco em 10-245-103-147
+# Tornado server na Amazon Srv1 com banco em Srv2
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 10 sec, 89 millisec and 421 microsec, 991 req/s, 492 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 10 sec, 188 millisec and 275 microsec, 981 req/s, 487 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
 #-------------------------------------------------------
-# Tornado server sem CURL na Amazon 12-31-39-0C-45-4C com banco em 10-245-103-147
+# Tornado server sem CURL na Amazon Srv1 com banco em Srv2
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 15 sec, 896 millisec and 303 microsec, 629 req/s, 312 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 16 sec, 116 millisec and 627 microsec, 620 req/s, 308 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
@@ -763,7 +763,7 @@ Testes com conexões incrementais
 for i in 10 20 30 40 50
 do
     echo "Conexoes $i"
-    weighttp -n 10000 -c $i -t 10 -k -H "User-Agent: tati" http://10.248.9.217:8888/
+    weighttp -n 10000 -c $i -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
 done
 </code>
 
@@ -881,15 +881,15 @@ traffic: 3642766 bytes total, 2006270 bytes http, 1636496 bytes data
 # Testes com Pypy
 
 #-------------------------------------------------------
-# Tornado server na Amazon 12-31-39-0C-45-4C com banco em 10-245-103-147
+# Tornado server na Amazon Srv1 com banco em Srv2
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 12 sec, 668 millisec and 910 microsec, 789 req/s, 392 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
 traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
-weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" ec2-54-234-130-164.compute-1.amazonaws.com:8888
+weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
 finished in 11 sec, 688 millisec and 195 microsec, 855 req/s, 425 kbyte/s
 requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
 status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
