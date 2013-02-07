@@ -37,6 +37,12 @@ In the tests were used:
 Results
 --------
 
+<div>
+ <script src="http://code.highcharts.com/highcharts.js"></script>
+ <div id="container" style="height: 400px"></div>
+</div>
+
+
  [This file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains dumps of the tests executed.
  
 
