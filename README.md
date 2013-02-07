@@ -34,12 +34,12 @@ In the tests were used:
  * (corporate) MacOSX lion 10.7.5 - 2Ghz Intel Vore i5 8Gb RAM, L2 Cache (per Core) 256 KB
  * (Amazon)  Linux Ubuntu 12.04.1 LTS (GNU/Linux 3.2.0-31-virtual x86_64), Intel(R) Xeon(R) CPU E5645  @ 2.40GHz, cache size 12288 KB 
  
-Raw Data
+Results
 --------
 
- The file [Raw_data.md](https://github.com/globocom/benchmark-python-wsgi/blob/master/Raw_data.txt) 
- contains dumps of the tests executed.
+ [This file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Raw_data.md) contains dumps of the tests executed.
  
+
 Team members
 ------------
 
