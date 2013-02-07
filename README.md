@@ -122,7 +122,11 @@ The columns represent the number of parallel connections in the client that gene
   </tr>
   <tr>
     <td>tornado_inc_load</td> <td>896</td> <td>899</td> <td>879</td> <td>862</td> <td>852</td>
+  </tr>
+  <tr>
     <td>gevent_inc_load</td> <td>462</td> <td>446</td> <td>437</td> <td>308</td> <td>256</td>
+  </tr>
+  <tr>
     <td>gevent_inc_load_alt</td> <td>518</td> <td>508</td> <td>413</td> <td>310</td> <td>311</td>
   </tr>
 </table> 
