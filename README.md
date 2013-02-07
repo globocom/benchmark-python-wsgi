@@ -2,9 +2,8 @@ Benchmark of Python WSGI Servers
 ================================
 
 We were interested in comparing Gevent with Tornado to see which would better suit our needs.
-The starting point was a benchmark [1](http://nichol.as/benchmark-of-python-web-servers) done
-by Nicholas Piël in 2010 showing that Tornado
-had excellent performance followed closely by Gevent.
+The starting point was a [benchmark  done by Nicholas Piël in 2010](http://nichol.as/benchmark-of-python-web-servers)
+showing that Tornado had excellent performance followed closely by Gevent.
 
 We did a very quick and non-rigorous benchmark in 2013-01-05.
 Nevertheless we are making the code and results available in case this can be useful elsewhere.
@@ -18,9 +17,9 @@ This test was run over the corporate wi-fi network.
 Then, we recreated the same test scenario in two different sets of Amazon instances to cross-validate the performance 
 measured.
 
-In the client side, we used wrk [2](https://github.com/wg/wrk), 
-weighttp [3](http://redmine.lighttpd.net/projects/weighttp/wiki) and 
-locust [4](http://locust.io/) to generate traffic.
+In the client side, we used [wrk](https://github.com/wg/wrk), 
+[weighttp](http://redmine.lighttpd.net/projects/weighttp/wiki) and 
+[locust](http://locust.io/) to generate traffic.
 
 The test cases where basically: 
   - the HTTP server just responds a "hello world" to a GET request.
@@ -38,14 +37,15 @@ In the tests were used:
 Raw Data
 --------
 
- The file Raw_data.txt contains dumps of the tests executed.
+ The file [Raw_data.txt](https://github.com/globocom/benchmark-python-wsgi/blob/master/Raw_data.txt) 
+ contains dumps of the tests executed.
  
 Team members
 ------------
 
 The team members that took part in the testing efforts were:
  - Ícaro Medeiros
- - Tatiana Al-Chuery
+ - Tatiana Al-Chuery Pereira Martins
  - Guilherme Machado Cirne
  - Rodrigo Dias Arruda Senra
 
