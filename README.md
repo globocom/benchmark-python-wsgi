@@ -134,9 +134,22 @@ The columns represent the number of parallel connections in the client that gene
 [The attached Benchmarks.md file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
  dumps of the raw tests executed.
 
+Conclusions
+-----------
+
+Tornado shows consistently a better performance than Gevent considering just "requests/s".
+The code produced with Gevent was cleaner and more readable than the code produced with Tornado.
+
+
+We did some other tests accessing a backend Redis server, instead of Virtuoso.
+The source code is also published in this project, but we did not compute the results of those tests in this report.
+When quering the Redis server using a synchronous driver the results of Tornado and Gevent had equivalent performances,
+however neither was stable.
+
 DISCLAIMER: This is a quick-and-dirty benchmark for us to have a glimpse of how to code in Tornado in comparison
             with how to code in Gevent, and to have a coarse grain idea of performance. A serious benchmark would
             need much more repetitions under more controlled conditions.
+
 
 Team members
 ------------
