@@ -2,6 +2,7 @@ Tornado retornando “Hello World!” na rede corporativa
 -----------------------------------------------------
 
 Code:
+
     #!/usr/bin/env python
     # -*- coding: utf-8 -*-
     from tornado import httpclient
@@ -25,57 +26,57 @@ Code:
         http_server.listen(8888)
         IOLoop.instance().start()
     
-    </code>
+Results:
 
-wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-Making 10000 requests to http://X.X.X.22:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    36.43ms   35.17ms 237.48ms   91.88%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10000 requests in 7.17s, 1.14MB read
-Requests/sec:   1395.30
-Transfer/sec:    163.51KB
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    36.43ms   35.17ms 237.48ms   91.88%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10000 requests in 7.17s, 1.14MB read
+    Requests/sec:   1395.30
+    Transfer/sec:    163.51KB
 
-wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-Making 10000 requests to http://X.X.X.22:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    25.20ms    7.37ms  51.52ms   71.43%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10002 requests in 5.11s, 1.14MB read
-Requests/sec:   1956.24
-Transfer/sec:    229.25KB
-
-wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-Making 10000 requests to http://X.X.X.22:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    23.81ms    5.86ms  52.28ms   67.10%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10000 requests in 4.68s, 1.14MB read
-Requests/sec:   2137.54
-Transfer/sec:    250.49KB
-
-wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-Making 10000 requests to http://X.X.X.22:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    28.56ms   10.18ms  83.10ms   81.32%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10006 requests in 5.55s, 1.15MB read
-Requests/sec:   1802.59
-Transfer/sec:    211.24KB
-
-wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-Making 10000 requests to http://X.X.X.22:8888/
-  5 threads and 50 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    26.83ms    9.41ms  70.45ms   79.17%
-    Req/Sec     0.00      0.00     0.00    100.00%
-  10002 requests in 5.29s, 1.14MB read
-Requests/sec:   1891.06
-Transfer/sec:    221.61KB
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    25.20ms    7.37ms  51.52ms   71.43%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10002 requests in 5.11s, 1.14MB read
+    Requests/sec:   1956.24
+    Transfer/sec:    229.25KB
+    
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    23.81ms    5.86ms  52.28ms   67.10%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10000 requests in 4.68s, 1.14MB read
+    Requests/sec:   2137.54
+    Transfer/sec:    250.49KB
+    
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    28.56ms   10.18ms  83.10ms   81.32%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10006 requests in 5.55s, 1.15MB read
+    Requests/sec:   1802.59
+    Transfer/sec:    211.24KB
+    
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    26.83ms    9.41ms  70.45ms   79.17%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10002 requests in 5.29s, 1.14MB read
+    Requests/sec:   1891.06
+    Transfer/sec:    221.61KB
 
 
 Tornando rodando “Hello World” sem print na rede corporativa
