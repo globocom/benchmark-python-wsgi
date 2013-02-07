@@ -40,24 +40,24 @@ Results
 
 The test cases were:
 
- tornado_lan_flask_hw - Tornado returning a simple "Hello World" for GET /  with Flask in corporate network
- tornado_lan_sock_hw - Tornado returning a simple "Hello World" for GET /  with pure sockets in corporate network 
- tornado_virt_lan - Tornado doing a query in Virtuoso (all servers in the same machine) in corporate network
- tornado_virt_s3 - Tornado doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
- tornado_virt_s1s2_pycurl - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2
- tornado_virt_s1s2_native - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 (without PyCurl)
- tornado_virt_pypy - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 (over Pypy)
- tornado_inc_load - Tornado incremental load
+ * tornado_lan_flask_hw - Tornado returning a simple "Hello World" for GET /  with Flask in corporate network
+ * tornado_lan_sock_hw - Tornado returning a simple "Hello World" for GET /  with pure sockets in corporate network 
+ * tornado_virt_lan - Tornado doing a query in Virtuoso (all servers in the same machine) in corporate network
+ * tornado_virt_s3 - Tornado doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
+ * tornado_virt_s1s2_pycurl - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2
+ * tornado_virt_s1s2_native - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 (without PyCurl)
+ * tornado_virt_pypy - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 (over Pypy)
+ * tornado_inc_load - Tornado incremental load
 
- gevent_lan_flask_hw - Gevent returning a simple "Hello World" for GET /  with Flask in corporate network
- gevent_lan_sock_hw - Gevent returning a simple "Hello World" for GET /  with pure sockets in corporate network
- gevent_virt_lan - Gevent doing a query in Virtuoso (all servers in the same machine) in corporate network
- gevent_pure_wsgi - Gevent returning a simple "Hello World" for GET /  with pure WSGI in corporate network
- gevent_virt_s3 - Gevent doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
- gevent_virt_s3_alt - Gevent (alternate implementaion) doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
- gevent_virt_s1s2 - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
- gevent_virt_s1s2_alt - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
- gevent_inc_load - Gevent incremental load
+ * gevent_lan_flask_hw - Gevent returning a simple "Hello World" for GET /  with Flask in corporate network
+ * gevent_lan_sock_hw - Gevent returning a simple "Hello World" for GET /  with pure sockets in corporate network
+ * gevent_virt_lan - Gevent doing a query in Virtuoso (all servers in the same machine) in corporate network
+ * gevent_pure_wsgi - Gevent returning a simple "Hello World" for GET /  with pure WSGI in corporate network
+ * gevent_virt_s3 - Gevent doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
+ * gevent_virt_s3_alt - Gevent (alternate implementaion) doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
+ * gevent_virt_s1s2 - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
+ * gevent_virt_s1s2_alt - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
+ * gevent_inc_load - Gevent incremental load
  
 <pre>
 
