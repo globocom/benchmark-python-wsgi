@@ -1,31 +1,32 @@
 Tornado retornando “Hello World!” na rede corporativa
 -----------------------------------------------------
 
-Code:
+```python
 
-    #!/usr/bin/env python
-    # -*- coding: utf-8 -*-
-    from tornado import httpclient
-    from tornado.wsgi import WSGIContainer
-    from tornado.httpserver import HTTPServer
-    from tornado.ioloop import IOLoop
-    from tornado.httputil import url_concat
-    
-    from flask import Flask, jsonify
-    
-    app = Flask(__name__)
-    app.debug = False
-    
-    @app.route('/')
-    def hello_world():
-        print ".", # esta linha foi removida em um dos cenários
-        return 'Hello World!'
-    
-    if __name__=="__main__":
-        http_server = HTTPServer(WSGIContainer(app))
-        http_server.listen(8888)
-        IOLoop.instance().start()
-    
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from tornado import httpclient
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+from tornado.httputil import url_concat
+
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+app.debug = False
+
+@app.route('/')
+def hello_world():
+    print ".", # esta linha foi removida em um dos cenários
+    return 'Hello World!'
+
+if __name__=="__main__":
+    http_server = HTTPServer(WSGIContainer(app))
+    http_server.listen(8888)
+    IOLoop.instance().start()
+```
+ 
 Results:
 
     wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
