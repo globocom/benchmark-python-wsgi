@@ -134,9 +134,9 @@ The columns represent the number of parallel connections in the client that gene
 [The attached Benchmarks.md file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
  dumps of the raw tests executed.
 
-DISCLAIMER: This is a quick-and-dirty benchmark for us to have a glimpse of how to code in Tornado in comparisom
+DISCLAIMER: This is a quick-and-dirty benchmark for us to have a glimpse of how to code in Tornado in comparison
             with how to code in Gevent, and to have a coarse grain idea of performance. A serious benchmark would
-            need much more repetiotions under more controlled conditions.
+            need much more repetitions under more controlled conditions.
 
 Team members
 ------------
