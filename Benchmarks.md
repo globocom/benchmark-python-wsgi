@@ -1,3 +1,6 @@
+Tornado
+=======
+
 Tornado returning  “Hello World!” inside corporate network
 ----------------------------------------------------------
 
@@ -128,186 +131,6 @@ Results:
       10002 requests in 4.57s, 1.14MB read
     Requests/sec:   2186.74
     Transfer/sec:    256.26KB
-
-
-Gevent returning "Hello World" in corporate network
----------------------------------------------------
-
-```python
-
-    #!/usr/bin/env python
-    # -*- coding: utf-8 -*-
-    
-    from gevent.wsgi import WSGIServer
-    from flask import Flask
-    
-    app = Flask(__name__)
-    app.debug = False
-    
-    @app.route('/')
-    def hello_world():
-        return 'Hello World!'
-    
-    if __name__ == "__main__":
-        http_server = WSGIServer(('', 8888), app)
-        http_server.serve_forever()
-    
-```
-
-Results:
-
-    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    24.26ms   15.50ms 266.76ms   96.08%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10004 requests in 11.29s, 1.71MB read
-    Requests/sec:    885.92
-    Transfer/sec:    154.86KB
-     
-    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    26.16ms   25.16ms 256.55ms   98.85%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10003 requests in 10.82s, 1.71MB read
-    Requests/sec:    924.46
-    Transfer/sec:    161.60KB
-    
-    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    21.83ms    8.60ms  80.75ms   80.48%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10001 requests in 10.63s, 1.71MB read
-    Requests/sec:    941.02
-    Transfer/sec:    164.49KB
-    
-    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    27.37ms   19.39ms 155.31ms   94.79%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10002 requests in 12.63s, 1.71MB read
-    Requests/sec:    791.95
-    Transfer/sec:    138.44KB
-    
-    
-    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    27.29ms   30.52ms 372.54ms   94.65%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10002 requests in 11.46s, 1.71MB read
-    Requests/sec:    872.69
-    Transfer/sec:    152.55KB
-
-
-Gevent doing a query in  Virtuoso
----------------------------------
-
-```python
-
-    from gevent.wsgi import WSGIServer
-    from gevent import monkey
-    monkey.patch_all()
-    
-    import requests
-    from flask import Flask, json
-    
-    from settings import SPARQL_ENDPOINT
-    from queries import GET_QUERY
-    
-    app = Flask(__name__)
-    app.debug = False
-    
-    @app.route('/')
-    def get():
-        payload = {
-            "query": GET_QUERY,
-            "format": "application/sparql-results+json"
-        }
-        r = requests.get(SPARQL_ENDPOINT, params=payload)
-        return r.text
-    
-    
-    if __name__ == "__main__":
-        http_server = WSGIServer(('', 8888), app)
-        http_server.serve_forever()
-```
-
-
-Results:
-
-    wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
-    Making 1000 requests to http://X.X.X.22:8888/
-      2 threads and 5 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    12.49ms    3.31ms  21.95ms   65.85%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      1000 requests in 6.16s, 344.73KB read
-    Requests/sec:    162.46
-    Transfer/sec:     56.00KB
-    
-    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   295.27ms  581.73ms   3.60s    92.29%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10002 requests in 1.27m, 3.37MB read
-      Socket errors: connect 0, read 0, write 0, timeout 256
-    Requests/sec:    130.91
-    Transfer/sec:     45.13KB
-    
-    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   230.14ms  469.85ms   3.52s    95.45%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10005 requests in 1.18m, 3.37MB read
-      Socket errors: connect 0, read 0, write 0, timeout 103
-    Requests/sec:    141.76
-    Transfer/sec:     48.87KB
-    
-    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   231.35ms  436.76ms   3.59s    94.18%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10002 requests in 1.23m, 3.37MB read
-      Socket errors: connect 0, read 0, write 0, timeout 178
-    Requests/sec:    135.03
-    Transfer/sec:     46.55KB
-    
-    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   229.98ms  455.50ms   3.50s    95.36%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10003 requests in 1.22m, 3.37MB read
-      Socket errors: connect 0, read 0, write 0, timeout 186
-    Requests/sec:    136.55
-    Transfer/sec:     47.07KB
-    
-    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
-    Making 10000 requests to http://X.X.X.22:8888/
-      5 threads and 50 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   239.44ms  410.80ms   3.59s    94.88%
-        Req/Sec     0.00      0.00     0.00    100.00%
-      10001 requests in 1.24m, 3.37MB read
-      Socket errors: connect 0, read 0, write 0, timeout 17
-    Requests/sec:    134.01
-    Transfer/sec:     46.20KB
 
 
 Tornado doing a query in  Virtuoso
@@ -458,6 +281,9 @@ Tornado doing a query in  Virtuoso
         tornado.ioloop.IOLoop.instance().start()
 ```
 
+Tornado running in local corporate network
+------------------------------------------
+
 Results:
 
     wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
@@ -501,8 +327,8 @@ Results:
     Transfer/sec:    357.48KB
     
 
-Tornado doing a query in Virtuoso but running on Amazon Srv3
-------------------------------------------------------------
+Tornado  running on Amazon Srv3
+-------------------------------
 
 Results:
 
@@ -549,8 +375,8 @@ Results:
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
 
-Tornado server na Amazon Srv1 com banco em Srv2
------------------------------------------------
+Tornado running on Amazon Srv1 doing queries in Virtuoso in Srv2
+----------------------------------------------------------------
 
 Results:
     
@@ -567,8 +393,8 @@ Results:
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
 
-Tornado server sem CURL na Amazon Srv1 com banco em Srv2
---------------------------------------------------------
+Tornado running on Amazon Srv1 doing queries in Virtuoso in Srv2 (do not use CURL)
+-----------------------------------------------------------------------------------
 
 Results:
 
@@ -583,7 +409,25 @@ Results:
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
+
     
+Tornado server running on Amazon Srv1 querying Virtuoso in separate Srv2 (Running over Pypy)
+--------------------------------------------------------------------------------------------
+
+Results:
+    
+    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
+    finished in 12 sec, 668 millisec and 910 microsec, 789 req/s, 392 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
+    
+    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
+    finished in 11 sec, 688 millisec and 195 microsec, 855 req/s, 425 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
+
 
 Tornado_sock running on Amazon Srv3
 ------------------------------------
@@ -645,40 +489,41 @@ Results:
     Requests/sec:   5716.09
     Transfer/sec:    251.20KB
 
+
 Incremental load against tornado_server.py
 -------------------------------------------
 
 Results:
     
-    Conexoes 10
+    10 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 11 sec, 153 millisec and 877 microsec, 896 req/s, 445 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
     
-    Conexoes 20
+    20 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 11 sec, 122 millisec and 544 microsec, 899 req/s, 446 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
     
-    Conexoes 30
+    30 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 11 sec, 363 millisec and 772 microsec, 879 req/s, 437 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
     
-    Conexoes 40
+    40 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 11 sec, 589 millisec and 41 microsec, 862 req/s, 428 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
     
-    Conexoes 50
+    50 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 11 sec, 728 millisec and 529 microsec, 852 req/s, 423 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
@@ -686,86 +531,84 @@ Results:
     traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
 
 
-Tornado server running on Amazon Srv1 querying Virtuoso in separate Srv2 (Running over Pypy)
---------------------------------------------------------------------------------------------
+Gevent
+======
 
-Results:
-    
-    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
-    finished in 12 sec, 668 millisec and 910 microsec, 789 req/s, 392 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
-    
-    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
-    finished in 11 sec, 688 millisec and 195 microsec, 855 req/s, 425 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 5090000 bytes total, 1590000 bytes http, 3500000 bytes data
+Gevent returning "Hello World" in corporate network
+---------------------------------------------------
 
+```python
 
-Executando com python servers/gevent_virtuoso_2.py
---------------------------------------------------
-
-Results:
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
     
-    Conexoes 10
-    weighttp - a lightweight and simple webserver benchmarking tool
-    finished in 19 sec, 276 millisec and 366 microsec, 518 req/s, 178 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    from gevent.wsgi import WSGIServer
+    from flask import Flask
     
-    Conexoes 20
-    finished in 19 sec, 652 millisec and 699 microsec, 508 req/s, 174 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    app = Flask(__name__)
+    app.debug = False
     
-    Conexoes 30
-    finished in 24 sec, 156 millisec and 234 microsec, 413 req/s, 143 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 9757 succeeded, 243 failed, 0 errored
-    status codes: 9757 2xx, 0 3xx, 0 4xx, 243 5xx
-    traffic: 3546973 bytes total, 1751685 bytes http, 1795288 bytes data
+    @app.route('/')
+    def hello_world():
+        return 'Hello World!'
     
-    Conexoes 40
-    finished in 32 sec, 193 millisec and 224 microsec, 310 req/s, 110 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 8865 succeeded, 1135 failed, 0 errored
-    status codes: 8865 2xx, 0 3xx, 0 4xx, 1135 5xx
-    traffic: 3645985 bytes total, 2014825 bytes http, 1631160 bytes data
+    if __name__ == "__main__":
+        http_server = WSGIServer(('', 8888), app)
+        http_server.serve_forever()
     
-    Conexoes 50
-    finished in 32 sec, 136 millisec and 842 microsec, 311 req/s, 110 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 8894 succeeded, 1106 failed, 0 errored
-    status codes: 8894 2xx, 0 3xx, 0 4xx, 1106 5xx
-    traffic: 3642766 bytes total, 2006270 bytes http, 1636496 bytes data
-    
-
-Gevent doing a query in Virtuoso but running on Amazon Srv3
------------------------------------------------------------
+```
 
 Results:
 
-    wrk -r10000 -t5 -c50 "http://Srv3:8888/"
-    Making 10000 requests to http://Srv3:8888/
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
       5 threads and 50 connections
       Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   115.05ms   13.69ms 159.72ms   82.92%
+        Latency    24.26ms   15.50ms 266.76ms   96.08%
         Req/Sec     0.00      0.00     0.00    100.00%
-      10000 requests in 23.32s, 3.36MB read
-    Requests/sec:    428.79
-    Transfer/sec:    147.40KB
-    
-    wrk -r10000 -t5 -c50 "http://Srv3:8888/"
-    Making 10000 requests to http://Srv3:8888/
+      10004 requests in 11.29s, 1.71MB read
+    Requests/sec:    885.92
+    Transfer/sec:    154.86KB
+     
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
       5 threads and 50 connections
       Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   114.73ms   13.86ms 151.87ms   81.70%
+        Latency    26.16ms   25.16ms 256.55ms   98.85%
         Req/Sec     0.00      0.00     0.00    100.00%
-      10000 requests in 23.28s, 3.36MB read
-    Requests/sec:    429.61
-    Transfer/sec:    147.68KB
-
+      10003 requests in 10.82s, 1.71MB read
+    Requests/sec:    924.46
+    Transfer/sec:    161.60KB
+    
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    21.83ms    8.60ms  80.75ms   80.48%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10001 requests in 10.63s, 1.71MB read
+    Requests/sec:    941.02
+    Transfer/sec:    164.49KB
+    
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    27.37ms   19.39ms 155.31ms   94.79%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10002 requests in 12.63s, 1.71MB read
+    Requests/sec:    791.95
+    Transfer/sec:    138.44KB
+    
+    wrk -r10000 -t5 -c50 http://X.X.X.22:8888/
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    27.29ms   30.52ms 372.54ms   94.65%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10002 requests in 11.46s, 1.71MB read
+    Requests/sec:    872.69
+    Transfer/sec:    152.55KB
 
 Gevent_pure_wsgi running on  Amazon Srv3
 ----------------------------------------
@@ -867,8 +710,195 @@ Results:
     Transfer/sec:    289.07KB
 
 
-Gevent_virtuoso2 na Amazon Srv3
---------------------------------
+Gevent doing a query in  Virtuoso in corporate Network
+------------------------------------------------------
+
+```python
+
+    from gevent.wsgi import WSGIServer
+    from gevent import monkey
+    monkey.patch_all()
+    
+    import requests
+    from flask import Flask, json
+    
+    from settings import SPARQL_ENDPOINT
+    from queries import GET_QUERY
+    
+    app = Flask(__name__)
+    app.debug = False
+    
+    @app.route('/')
+    def get():
+        payload = {
+            "query": GET_QUERY,
+            "format": "application/sparql-results+json"
+        }
+        r = requests.get(SPARQL_ENDPOINT, params=payload)
+        return r.text
+    
+    
+    if __name__ == "__main__":
+        http_server = WSGIServer(('', 8888), app)
+        http_server.serve_forever()
+```
+
+
+Results:
+
+    wrk -r1000 -t2 -c5 http://X.X.X.22:8888/
+    Making 1000 requests to http://X.X.X.22:8888/
+      2 threads and 5 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    12.49ms    3.31ms  21.95ms   65.85%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      1000 requests in 6.16s, 344.73KB read
+    Requests/sec:    162.46
+    Transfer/sec:     56.00KB
+    
+    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   295.27ms  581.73ms   3.60s    92.29%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10002 requests in 1.27m, 3.37MB read
+      Socket errors: connect 0, read 0, write 0, timeout 256
+    Requests/sec:    130.91
+    Transfer/sec:     45.13KB
+    
+    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   230.14ms  469.85ms   3.52s    95.45%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10005 requests in 1.18m, 3.37MB read
+      Socket errors: connect 0, read 0, write 0, timeout 103
+    Requests/sec:    141.76
+    Transfer/sec:     48.87KB
+    
+    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   231.35ms  436.76ms   3.59s    94.18%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10002 requests in 1.23m, 3.37MB read
+      Socket errors: connect 0, read 0, write 0, timeout 178
+    Requests/sec:    135.03
+    Transfer/sec:     46.55KB
+    
+    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   229.98ms  455.50ms   3.50s    95.36%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10003 requests in 1.22m, 3.37MB read
+      Socket errors: connect 0, read 0, write 0, timeout 186
+    Requests/sec:    136.55
+    Transfer/sec:     47.07KB
+    
+    wrk -r10000 -t5 -c50 "http://X.X.X.22:8888/"
+    Making 10000 requests to http://X.X.X.22:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   239.44ms  410.80ms   3.59s    94.88%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10001 requests in 1.24m, 3.37MB read
+      Socket errors: connect 0, read 0, write 0, timeout 17
+    Requests/sec:    134.01
+    Transfer/sec:     46.20KB
+
+Gevent_virtuoso na Amazon Srv3
+------------------------------
+
+```python
+from gevent.wsgi import WSGIServer
+from gevent import monkey
+monkey.patch_all()
+
+import requests
+from flask import Flask, json
+
+from settings import SPARQL_ENDPOINT
+from queries import GET_QUERY
+
+app = Flask(__name__)
+app.debug = False
+
+
+@app.route('/')
+def get():
+    payload = {
+        "query": GET_QUERY,
+        "format": "application/sparql-results+json"
+    }
+    r = requests.get(SPARQL_ENDPOINT, params=payload)
+    return r.text
+
+
+if __name__ == "__main__":
+    http_server = WSGIServer(('', 8888), app)
+    http_server.serve_forever()
+```
+
+Results:
+    
+    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
+    finished in 22 sec, 232 millisec and 335 microsec, 449 req/s, 154 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    
+    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
+    finished in 22 sec, 676 millisec and 538 microsec, 440 req/s, 151 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    
+    wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+    Making 10000 requests to http://Srv3:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   115.05ms   13.69ms 159.72ms   82.92%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10000 requests in 23.32s, 3.36MB read
+    Requests/sec:    428.79
+    Transfer/sec:    147.40KB
+    
+    wrk -r10000 -t5 -c50 "http://Srv3:8888/"
+    Making 10000 requests to http://Srv3:8888/
+      5 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency   114.73ms   13.86ms 151.87ms   81.70%
+        Req/Sec     0.00      0.00     0.00    100.00%
+      10000 requests in 23.28s, 3.36MB read
+    Requests/sec:    429.61
+    Transfer/sec:    147.68KB
+
+    
+Gevent_virtuoso running on  Amazon Srv1 querying Virtuoso in separate  Srv2
+---------------------------------------------------------------------------
+
+Results:
+
+    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
+    finished in 24 sec, 307 millisec and 276 microsec, 411 req/s, 141 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    
+    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
+    finished in 23 sec, 944 millisec and 71 microsec, 417 req/s, 143 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    
+
+Gevent_virtuoso2 running on  Amazon Srv3
+----------------------------------------
 
 ```python
 #!/usr/bin/env python
@@ -946,73 +976,8 @@ Results:
     Requests/sec:    524.20
     Transfer/sec:    180.19KB
 
-Gevent_virtuoso na Amazon Srv3
-------------------------------
 
-```python
-from gevent.wsgi import WSGIServer
-from gevent import monkey
-monkey.patch_all()
-
-import requests
-from flask import Flask, json
-
-from settings import SPARQL_ENDPOINT
-from queries import GET_QUERY
-
-app = Flask(__name__)
-app.debug = False
-
-
-@app.route('/')
-def get():
-    payload = {
-        "query": GET_QUERY,
-        "format": "application/sparql-results+json"
-    }
-    r = requests.get(SPARQL_ENDPOINT, params=payload)
-    return r.text
-
-
-if __name__ == "__main__":
-    http_server = WSGIServer(('', 8888), app)
-    http_server.serve_forever()
-```
-
-Results:
-    
-    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
-    finished in 22 sec, 232 millisec and 335 microsec, 449 req/s, 154 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
-    
-    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
-    finished in 22 sec, 676 millisec and 538 microsec, 440 req/s, 151 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
-    
-    
-Gevent_virtuoso running on  Amazon Srv1 querying Virtuoso in seperate  Srv2
----------------------------------------------------------------------------
-
-Results:
-
-    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
-    finished in 24 sec, 307 millisec and 276 microsec, 411 req/s, 141 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
-    
-    weighttp -n 10000 -c 20 -t 10 -k -H "User-Agent: tati" Srv1:8888
-    finished in 23 sec, 944 millisec and 71 microsec, 417 req/s, 143 kbyte/s
-    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
-    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
-    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
-    
-
-Gevent_virtuoso2 running on  Amazon Srv1 querying Virtuoso in seperate  Srv2
+Gevent_virtuoso2 running on  Amazon Srv1 querying Virtuoso in separate  Srv2
 ---------------------------------------------------------------------------
 
 Results:
@@ -1029,60 +994,83 @@ Results:
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
 
-    
-
-Testes com conexões incrementais
-================================
-
-Code:
-
-    #./inc_test.sh  
-    #!/bin/bash
-    for i in 10 20 30 40 50
-    do
-        echo "Conexoes $i"
-        weighttp -n 10000 -c $i -t 10 -k -H "User-Agent: tati" http://Srv3:8888/
-    done
 
 Incremental load against gevent_virtuoso.py
 -------------------------------------------
 
 Results:
     
-    Conexoes 10
+    10 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 21 sec, 624 millisec and 868 microsec, 462 req/s, 158 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
     
-    Conexoes 20
+    20 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 22 sec, 373 millisec and 816 microsec, 446 req/s, 153 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
     
-    Conexoes 30
+    30 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 22 sec, 847 millisec and 966 microsec, 437 req/s, 150 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
     status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
     traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
     
-    Conexoes 40
+    40 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 32 sec, 440 millisec and 792 microsec, 308 req/s, 110 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 8652 succeeded, 1348 failed, 0 errored
     status codes: 8652 2xx, 0 3xx, 0 4xx, 1348 5xx
     traffic: 3669628 bytes total, 2077660 bytes http, 1591968 bytes data
     
-    Conexoes 50
+    50 Connections
     weighttp - a lightweight and simple webserver benchmarking tool
     finished in 38 sec, 940 millisec and 533 microsec, 256 req/s, 94 kbyte/s
     requests: 10000 total, 10000 started, 10000 done, 7909 succeeded, 2091 failed, 0 errored
     status codes: 7909 2xx, 0 3xx, 0 4xx, 2091 5xx
     traffic: 3752101 bytes total, 2296845 bytes http, 1455256 bytes data
 
+
+Incremental load against gevent_virtuoso2.py
+-------------------------------------------
+
+Results:
+    
+    10 Connections
+    weighttp - a lightweight and simple webserver benchmarking tool
+    finished in 19 sec, 276 millisec and 366 microsec, 518 req/s, 178 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    
+    20 Connections
+    finished in 19 sec, 652 millisec and 699 microsec, 508 req/s, 174 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 10000 succeeded, 0 failed, 0 errored
+    status codes: 10000 2xx, 0 3xx, 0 4xx, 0 5xx
+    traffic: 3520000 bytes total, 1680000 bytes http, 1840000 bytes data
+    
+    30 Connections
+    finished in 24 sec, 156 millisec and 234 microsec, 413 req/s, 143 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 9757 succeeded, 243 failed, 0 errored
+    status codes: 9757 2xx, 0 3xx, 0 4xx, 243 5xx
+    traffic: 3546973 bytes total, 1751685 bytes http, 1795288 bytes data
+    
+    40 Connections
+    finished in 32 sec, 193 millisec and 224 microsec, 310 req/s, 110 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 8865 succeeded, 1135 failed, 0 errored
+    status codes: 8865 2xx, 0 3xx, 0 4xx, 1135 5xx
+    traffic: 3645985 bytes total, 2014825 bytes http, 1631160 bytes data
+    
+    50 Connections
+    finished in 32 sec, 136 millisec and 842 microsec, 311 req/s, 110 kbyte/s
+    requests: 10000 total, 10000 started, 10000 done, 8894 succeeded, 1106 failed, 0 errored
+    status codes: 8894 2xx, 0 3xx, 0 4xx, 1106 5xx
+    traffic: 3642766 bytes total, 2006270 bytes http, 1636496 bytes data
+    
 
 
