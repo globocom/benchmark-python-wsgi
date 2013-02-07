@@ -1,32 +1,56 @@
 Benchmark of Python WSGI Servers
 ================================
 
-Based on:
-http://nichol.as/benchmark-of-python-web-servers
+We were interested in comparing Gevent with Tornado to see which would better suit our needs.
+The starting point was a benchmark [1] done by Nicholas Piël in 2010 showing that Tornado
+had excellent performance followed closely by Gevent.
 
-We will run the following WSGI application ‘virtuoso_io.py’ on all servers:
-
-::
-
-    # code for ‘virtuoso_io.py
+We did a very quick and non-rigorous benchmark in 2013-01-05.
+Nevertheless we are making the code and results available in case this can be useful elsewhere.
 
 
-Which performs:
-* POST to add a resource
-* GET to get a resource
+Scenarios
+---------
 
-Increasing the rate with an interval of 100 from 400 up to 9000 requests per second for a total of 40.000 requests at each interval.
+First we tested a linux client generating HTTP traffic towards a MacOSX running the server backend. 
+This test was run over the corporate wi-fi network.
+Then, we recreated the same test scenario in two different sets of Amazon instances to cross-validate the performance 
+measured.
 
+In the client side, we used wrk [2], weighttp [3] and locust [4] to generate traffic.
 
-Contestant servers
-------------------
+The test cases where basically: 
+  - the HTTP server just responds a "hello world" to a GET request.
+  - the HTTP server queries a backend Virtuoso triple-store database 
+  - the HTTP server queries a backend REDIS database
 
-The servers will create / retrieve information in Virtuoso.
+Infra-structure details
+-----------------------
 
-These technologies will be used:
+In the tests were used:
+ * (corporate) Linux running Fedora 16, Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz 8Gb RAM, cache size 4096 KB 
+ * (corporate) MacOSX lion 10.7.5 - 2Ghz Intel Vore i5 8Gb RAM, L2 Cache (per Core) 256 KB
+ * (Amazon)  Linux Ubuntu 12.04.1 LTS (GNU/Linux 3.2.0-31-virtual x86_64), Intel(R) Xeon(R) CPU E5645  @ 2.40GHz, cache size 12288 KB 
+ 
+Raw Data
+--------
 
-* GEvent
-* Gunicorn
-* Tornado
+ The file Raw_data.txt contains dumps of the tests executed.
+ 
+Team members
+------------
 
-With and without PyPy.
+The team members that took part in the testing efforts were:
+ - Ícaro Medeiros
+ - Tatiana Al-Chuery
+ - Guilherme Machado Cirne
+ - Rodrigo Dias Arruda Senra
+
+ 
+References
+----------
+
+[1] http://nichol.as/benchmark-of-python-web-servers
+[2] https://github.com/wg/wrk
+[3] http://redmine.lighttpd.net/projects/weighttp/wiki
+[4] http://locust.io/

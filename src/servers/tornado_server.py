@@ -6,7 +6,6 @@ from tornado import gen
 from tornado.web import RequestHandler, asynchronous
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from tornado.httputil import url_concat
-import brukva
 import redis
 
 from settings import SPARQL_ENDPOINT
