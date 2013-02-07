@@ -33,19 +33,39 @@ In the tests were used:
  * (corporate) Linux running Fedora 16, Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz 8Gb RAM, cache size 4096 KB 
  * (corporate) MacOSX lion 10.7.5 - 2Ghz Intel Vore i5 8Gb RAM, L2 Cache (per Core) 256 KB
  * (Amazon)  Linux Ubuntu 12.04.1 LTS (GNU/Linux 3.2.0-31-virtual x86_64), Intel(R) Xeon(R) CPU E5645  @ 2.40GHz, cache size 12288 KB 
- 
+
+
 Results
 --------
 
-```uml-usecase
-  roles | actions
-  ------|--------
-  admin | login | manage user | manage news | logout
-  user | login | read news | logout
-  guest | read news
-```
+The test cases were:
 
- [This file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains dumps of the tests executed.
+ tornado_lan_flask_hw - Tornado returning a simple "Hello World" for GET /  with Flask in corporate network
+ tornado_lan_sock_hw - Tornado returning a simple "Hello World" for GET /  with pure sockets in corporate network 
+ tornado_virt_lan - Tornado doing a query in Virtuoso (all servers in the same machine) in corporate network
+ tornado_virt_s3 - Tornado doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
+ tornado_virt_s1s2_pycurl - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2
+ tornado_virt_s1s2_native - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 (without PyCurl)
+ tornado_virt_pypy - Tornado doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 (over Pypy)
+ tornado_inc_load - Tornado incremental load
+
+ gevent_lan_flask_hw - Gevent returning a simple "Hello World" for GET /  with Flask in corporate network
+ gevent_lan_sock_hw - Gevent returning a simple "Hello World" for GET /  with pure sockets in corporate network
+ gevent_virt_lan - Gevent doing a query in Virtuoso (all servers in the same machine) in corporate network
+ gevent_pure_wsgi - Gevent returning a simple "Hello World" for GET /  with pure WSGI in corporate network
+ gevent_virt_s3 - Gevent doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
+ gevent_virt_s3_alt - Gevent (alternate implementaion) doing a query in Virtuoso (all servers in the same machine) in Amazon Srv3
+ gevent_virt_s1s2 - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
+ gevent_virt_s1s2_alt - Gevent doing a query in Virtuoso (servers in different machines) in Amazon Srv1-Srv2 
+ gevent_inc_load - Gevent incremental load
+ 
+<pre>
+
+
+</pre>
+
+ [This file](https://github.com/globocom/benchmark-python-wsgi/blob/master/Benchmarks.md) contains 
+ dumps of the raw tests executed.
  
 
 Team members
