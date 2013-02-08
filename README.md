@@ -29,7 +29,7 @@ The test cases where basically:
 Infra-structure details
 -----------------------
 
-In the tests were used:
+In the tests we used the following hardware configuration:
  * (corporate) Linux running Fedora 16, Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz 8Gb RAM, cache size 4096 KB 
  * (corporate) MacOSX lion 10.7.5 - 2Ghz Intel Vore i5 8Gb RAM, L2 Cache (per Core) 256 KB
  * (Amazon)  Linux Ubuntu 12.04.1 LTS (GNU/Linux 3.2.0-31-virtual x86_64), Intel(R) Xeon(R) CPU E5645  @ 2.40GHz, cache size 12288 KB 
@@ -60,7 +60,7 @@ The test cases were:
  * gevent_inc_load - Gevent incremental load
  * gevent_inc_load_alt - Gevent incremental load (alternate implementaion)
 
-The table below depicts the average results for comparisom: 
+The table below depicts the average results for comparison: 
  
 <table>
   <tr>
@@ -138,8 +138,8 @@ The columns represent the number of parallel connections in the client that gene
 Conclusions
 -----------
 
-Tornado shows consistently a better performance than Gevent considering just "requests/s", and responds better to 
-increases in the load.
+Tornado shows consistently a better performance than Gevent considering just "requests/s", and responds better when we
+increase the number of requests, thus, it is a good hint that will scale better.
 However, the code produced with Gevent was cleaner and more readable than the code produced with Tornado.
 
 When using Tornado, the adoption of the pycurl client (instead of the [native client](http://www.tornadoweb.org/documentation/httpclient.html))
@@ -150,12 +150,13 @@ The use of Flask significantly reduces the performance of both Tornado or Gevent
 Comparing *tornado_virt_s3* with *tornado_virt_pypy* showed that PyPy adoption did not contributed to any performance enhancement.
 We were unable to run PyPy with Gevent. 
 
-We did not have consistent results of which is the best http client for Gevent: either the patched "requests" lib or "geventhttpclient".
+We did not have consistent results of which is the best http client for Gevent:
+either the patched "requests" lib or "geventhttpclient".
 When the servers are separate (more realistic use case),  patched "requests" performed better than "geventhttpclient".
 
 We did some other tests accessing a backend Redis server, instead of Virtuoso.
 The source code is also published in this project, but we did not reported here the detailed results of those tests.
-When quering the Redis server using a synchronous driver the results of Tornado and Gevent had equivalent performances,
+When querying the Redis server using a synchronous driver the results of Tornado and Gevent had equivalent performances,
 however neither was stable.
 
 DISCLAIMER: This is a quick-and-dirty benchmark for us to have a glimpse of how to code in Tornado in comparison
