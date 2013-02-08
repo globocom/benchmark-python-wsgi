@@ -169,10 +169,10 @@ Team members
 
 The team members that took part in the testing efforts were:
 
-  - Guilherme Machado Cirne
-  - Ícaro Medeiros
-  - Rodrigo Dias Arruda Senra
-  - Tatiana Al-Chuery Pereira Martins
+  - [Guilherme Machado Cirne](http://github.com/gcirne) 
+  - [Ícaro Medeiros](http://github.com/icaromedeiros)
+  - [Rodrigo Dias Arruda Senra](http://github.com/rodsenra)
+  - [Tatiana Al-Chuery Pereira Martins](http://github.com/tatiana)
 
  
 References
